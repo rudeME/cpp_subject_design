@@ -13,6 +13,7 @@ student::student(const char* id, const char* name, int stu_sex, int stu_school, 
     for(int i = 0; i<= 19; i++)
         score[i] = -1;
     total_score = 0;
+    next = NULL;
 }
 char* student::get_id()
 {
