@@ -36,8 +36,13 @@ void init()
     stu_ls.num = 0;
     fstream OpenFile;
     OpenFile.open("link_list.txt", ios::in);
-    for(; !OpenFile.eof();)
+    for(;;)
     {
+        char ch;
+        OpenFile.get(ch);
+        if(OpenFile.eof())
+            break;
+        OpenFile.seekg(-1);
         char id[15];
         char name[20];
         int sex, school, class_num, score;
@@ -96,18 +101,34 @@ student* add(const char* id, const char* name, int sex, int school, int class_nu
     {
         if(NULL == ptr->next)
         {
-            ptr->next = pnew;
-            stu_ls.end = pnew;
-            break;
+            if(ptr == stu_ls.head || strcmp(ptr->get_id(), id) < 0)
+            {
+                ptr->next = pnew;
+                stu_ls.end = pnew;
+                break;
+            }
+            else 
+                return NULL;
         }
         if(ptr == stu_ls.head)
-            continue;
+        {
+            if(strcmp(ptr->next->get_id(), id) > 0)
+            {
+                pnew->next = ptr->next;
+                ptr->next = pnew;
+                break;
+            }
+            else 
+                continue;
+        }
         if(strcmp(ptr->get_id(), id) < 0 && strcmp(ptr->next->get_id(), id) > 0)
         {
             pnew->next = ptr->next;
             ptr->next = pnew;
             break;
         }
+        if(strcmp(ptr->get_id(), id) == 0)
+            return NULL;
     }
     ++stu_ls.num;
     return pnew;
