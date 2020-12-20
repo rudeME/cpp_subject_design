@@ -7,10 +7,12 @@ the programme is trusteeshiped on github, the website is https://github.com/rude
 (pth)achieve function seek, add, del and del_all   
 (pth)achieve function sort_by_total_score, 2 reloaded   
 (pth)achieve function sort_by_subject_score, 2 reloaded   
-(pth)achieve function sort_by_id, 3 reloaded
+(pth)achieve function sort_by_id, 3 reloaded    
 (pth)achieve function subject_pass_rate, 3 reloaded   
 (pth)achieve function subject_average, 3 reloaded  
 (pth)Back-end development is basically completed, waiting for debugging   
+(pth)create main.cpp   
+(pth)solve the bug in function init and add
 ## Back-end Functions Introduction
 想要使用后端数据，请添加"class_student.h"和"functions.h"头文件   
 后端用来交付的数据会存在data命名空间当中，使用时请using namespace data，或使用data::   
@@ -105,7 +107,8 @@ get_total_score 无参数，返回总分
 ## Tigs for Test Engineer
 项目有不少的测试任务...
 ### Back-end Test
-首先需要你们测试的是后端的正确性，后端的输入不负责健壮性检查，所以请确保你们的输入格式符合后端的规范;)   
+首先需要你们测试的是后端的正确性，需要编写用来测试后端的大批量数据   
+后端的输入不负责健壮性检查，所以请确保你们的输入格式符合后端的规范;)   
 测试数据应当具有代表性和差异性，能够尽量检测出程序不完善的地方   
 后端测试数据的需求量比较庞大，很难手写，所以建议你们编程来生成数据(不限语言)   
 生成的测试数据需要保存在**txt文件**中   
@@ -151,4 +154,10 @@ get_total_score 无参数，返回总分
    
 但是仍然注意：你们最先测试的应当是正常的数据，在正常的前提下逐步提高数据非法程度   
 记得反馈问题给工程师ヽ(￣д￣;)ノ=3=3=3   
-嗯，关于测试的事情就这么多   
+嗯，关于测试的事情就这么多  
+
+## Development members
+***殷曙光 前端开发***   
+***潘天航 后端开发***   
+***邓志恒 测试工程师 作家***   
+***王子扬 测试工程师 作家***   
