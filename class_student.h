@@ -16,8 +16,9 @@ public:
     int get_school();
     int get_class_num();
     int get_score(int);
+    int get_total_score();
     void modify_school(int);
-    void modify_class_num();
+    void modify_class_num(int);
     void modify_score(int, int);
     student* next;
 protected:
