@@ -3,6 +3,7 @@
 #include"class_student.h"
 using namespace std;
 
+namespace data{};
 void init();
 void save();
 void seek(const char*);
