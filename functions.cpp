@@ -38,15 +38,12 @@ void init()
     OpenFile.open("link_list.txt", ios::in);
     for(;;)
     {
-        char ch;
-        OpenFile.get(ch);
-        if(OpenFile.eof())
-            break;
-        OpenFile.seekg(-1);
         char id[15];
         char name[20];
         int sex, school, class_num, score;
-        OpenFile >> id >> name >> sex >> school >> class_num;
+        if(OpenFile >> id >> name >> sex >> school >> class_num){}
+        else 
+            break;
         pnew = new student{id, name, sex, school, class_num};
         for(int i = 0; i <= 19; i++)
         {
