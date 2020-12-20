@@ -1,10 +1,12 @@
+#ifndef CLASS_H
+#define CLASS_H
 #include<iostream>
 #include<cstdio>
 using namespace std;
 
-enum school {计软院, 电信院, 数统院};
-enum sex {男, 女};
-enum subject_name {高等数学, 线性代数, 程序设计基础, 概率统计, 电子技术基础, 近世代数, 常微分方程, 信号与系统, 操作系统, 计算机网络};
+enum school {JI_RUAN, DIAN_XIN, SHU_TONG};
+enum sex {MALE, FEMALE};
+enum subject_name {GAO_SHU, XIAN_DAI, CHENG_XU, GAI_TONG, DIAN_ZI, JIN_SHI, CHANG_WEI_FEN, XIN_HAO, OS, NET};
 
 class student
 {
@@ -30,3 +32,4 @@ protected:
     int score[20];//-1意思为未选课，-2意思为选课但是还没有考试，0~100意思为选课且有成绩
     int total_score;
 };
+#endif

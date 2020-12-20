@@ -32,26 +32,26 @@ the programme is trusteeshiped on github, the website is https://github.com/rude
 5参数，const char* id, const char* name, int sex, int school, int class_num   
 1返回值 student*
 此函数用来添加学生，5个参数分别为学生的学号，姓名，性别，学院，班级号   
-性别，学院已经设置好了枚举型变量，在参数表中直接填汉字即可，不需要加双引号   
-性别：男, 女   
-学院：计软院, 电信院, 数统院   
+性别，学院已经设置好了枚举型变量，在参数表中直接填写即可，不需要加双引号   
+性别：MALE, FEMALE   
+学院：JI_RUAN, DIAN_XIN, SHU_TONG   
 举例：   
-student* ptr = add("201983290999", "马保国", 男, 计软院, 1);    
+student* ptr = add("201983290999", "马保国", MALE, JI_RUAN, 1);    
 或   
-student* ptr{add("201983290999", "马保国", 男, 计软院, 1)};   
+student* ptr{add("201983290999", "马保国", MALE, JI_RUAN, 1)};   
 函数设有1个返回值，会返回指向这个新建对象的指针，注意，add函数里面不包含对学科分数的登记，登记分数可以通过这个返回的指针，用下面即将提到的modify_score方法修改，切记要登记分数！   
 ### modify_score方法
 2参数，int sub, int score   
 注意，**这是student类的方法**，此方法可以用来修改学生的分数，设有2个参数，分别是需要修改的科目和分数   
 科目也是枚举类型：   
-科目：高等数学, 线性代数, 程序设计基础, 概率统计, 电子技术基础, 近世代数, 常微分方程, 信号与系统, 操作系统, 计算机网络   
+科目：GAO_SHU, XIAN_DAI, CHENG_XU, GAI_TONG, DIAN_ZI, JIN_SHI, CHANG_WEI_FEN, XIN_HAO, OS, NET   
 写入参数的时候也是直接写汉字就可以了，不用加双引号   
 举例：   
-student* ptr{add("201983290999", "马保国", 男, 计软院, 1)};//ptr指向你新加入的学生   
-ptr->modify_score(高等数学, 90);//这样即可登记高等数学的分数为90   
+student* ptr{add("201983290999", "马保国", MALE, JI_RUAN, 1)};//ptr指向你新加入的学生   
+ptr->modify_score(GAO_SHU, 90);//这样即可登记高等数学的分数为90   
 ### modify_school方法
 1参数，int stu_school   
-注意，这是student类的方法，此方法可以改变学生的学院，参数填枚举类型的汉字即可   
+注意，这是student类的方法，此方法可以改变学生的学院，参数填枚举类型即可   
 ### modify_class_num方法
 1参数，int class_num   
 注意，这是student类的方法，此方法可以改变学生的班级，参数填班级号即可   
@@ -114,8 +114,8 @@ get_total_score 无参数，返回总分
 每一行中需要有该学生的信息，按顺序分别为：学号，姓名，性别，学院，班级，20个科目成绩，**每一项用空格隔开**   
 学号需要保证每个学生都不同，位数不超过14   
 姓名使用汉字，不超过9个字，学生之间应该**有适当的重名**   
-性别为男或女   
-学院可以是：计软院, 电信院, 数统院   
+性别为MALE, FEMALE   
+学院可以是：JI_RUAN, DIAN_XIN, SHU_TONG   
 班级应该是一个整型数字，不要太大，应保证一个班级中有适量的学生   
 20个科目成绩可以是-1, -2或0到100，-2代表未修，-1代表在修，0到100代表已修，记录成绩   
 应当保证一个学院的学生修的学科基本相同，不同学院学院学生修的学科有差异   

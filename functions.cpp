@@ -30,7 +30,7 @@ bool cmp_by_score(student* pa, student* pb){return pa->get_score(subject) >= pb-
 void init()
 {
     student* pnew;
-    pnew = new student{"NULL", "NULL", 男, 计软院, -1};
+    pnew = new student{"NULL", "NULL", MALE, JI_RUAN, -1};
     stu_ls.head = pnew;
     stu_ls.end = pnew;
     stu_ls.num = 0;
@@ -48,6 +48,8 @@ void init()
             OpenFile >> score;
             pnew->modify_score(i, score);
         }
+        stu_ls.end->next = pnew;
+        stu_ls.end = pnew;
     }
     OpenFile.close();
 }
