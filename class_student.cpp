@@ -43,3 +43,31 @@ void student::modify_score(int sub, int score)
     else 
         total_score += score - origin;
 }
+
+void student::modify_score(const char* sub, int score)
+{
+    int sub_int;
+    if(strcmp(sub, "高数") == 0)
+        sub_int = GAO_SHU;
+    else if(strcmp(sub, "程序") == 0)
+        sub_int = CHENG_XU;
+    else if(strcmp(sub, "电子") == 0)
+        sub_int = DIAN_ZI;
+    else if(strcmp(sub, "常微分") == 0)
+        sub_int = CHANG_WEI_FEN;
+    else if(strcmp(sub, "操作系统") == 0)
+        sub_int = OS;
+    else if(strcmp(sub, "线代") == 0)
+        sub_int = XIAN_DAI;
+    else if(strcmp(sub, "概统") == 0)
+        sub_int = GAI_TONG;
+    else if(strcmp(sub, "近世") == 0)
+        sub_int = JIN_SHI;
+    else if(strcmp(sub, "信号") == 0)
+        sub_int = XIN_HAO;
+    else if(strcmp(sub, "网络") == 0)
+        sub_int = NET;
+    else 
+        return;
+    this->modify_score(sub_int, score);
+}

@@ -22,6 +22,7 @@ public:
     void modify_school(int);
     void modify_class_num(int);
     void modify_score(int, int);
+    void modify_score(const char*, int);
     student* next;
 protected:
     char id[15];

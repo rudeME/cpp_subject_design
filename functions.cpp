@@ -131,6 +131,27 @@ student* add(const char* id, const char* name, int sex, int school, int class_nu
     return pnew;
 }
 
+student* add(const char* id, const char* name, const char* sex, const char* school, int class_num)
+{
+    int sex_int, school_int;
+    if(strcmp(sex, "男") == 0 || strcmp(sex, "MALE") == 0)
+        sex_int = MALE;
+    else if(strcmp(sex, "女") == 0 || strcmp(sex, "FEMALE") == 0)
+        sex_int = FEMALE;
+    else 
+        return NULL;
+    if(strcmp(school, "计软") == 0 || strcmp(school, "JI_RUAN") == 0)
+        school_int = JI_RUAN;
+    else if(strcmp(school, "电信") == 0 || strcmp(school, "DIAN_XIN") == 0)
+        school_int = DIAN_XIN;
+    else if(strcmp(school, "数统") == 0 || strcmp(school, "SHU_TONG") == 0)
+        school_int = SHU_TONG;
+    else 
+        return NULL;
+    return add(id, name, sex_int, school_int, class_num);
+}
+
+
 void del(student* pdel)
 {
     student* ptr{stu_ls.head};

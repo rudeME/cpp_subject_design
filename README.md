@@ -4,6 +4,7 @@ the programme is trusteeshiped on github, the website is https://github.com/rude
 ## README Refresh Log
 (pth)add the title of Developers at the end of file   
 (pth)add some examples in Tigs For Test Engineer   
+(pth)add reloads to function add and student::modify_score, please query details in Back-end Functions Introduction     
 ## Development Log
 (pth)the code is encoded with UTF-8   
 (pth)achieve function init and save   
@@ -18,6 +19,7 @@ the programme is trusteeshiped on github, the website is https://github.com/rude
 (pth)have some quick tests on back-end functions   
 (pth)solve the bug in function init and add   
 (pth)waiting for test data of back-end   
+(pth)add a reload to function add and student::modify_score, add the support of string input   
 ## Back-end Functions Introduction
 想要使用后端数据，请添加"class_student.h"和"functions.h"头文件   
 后端用来交付的数据会存在data命名空间当中，使用时请using namespace data，或使用data::   
@@ -36,22 +38,30 @@ the programme is trusteeshiped on github, the website is https://github.com/rude
 此函数用来查找。接收一个参数id_or_name。将需要查找的对象的学号或者姓名输入，函数就会自动查找所有符合条件的对象，并将这些对象的指针，按照学号顺序存储在data命名空间的seek_res()数组中(**下标从0开始，以下不特别说明下标均从0开始**)(注意，存储的是**student对象类型的指针**)，   
 符合条件的结果数量会存储在data::seek_num整型变量中
 ### add
+2个重载
 5参数，const char* id, const char* name, int sex, int school, int class_num   
+5参数，const char* id, const char* name, const char* sex, const char* school, int class_num   
 1返回值 student*
 此函数用来添加学生，5个参数分别为学生的学号，姓名，性别，学院，班级号   
 性别，学院已经设置好了枚举型变量，在参数表中直接填写即可，不需要加双引号   
 性别：MALE, FEMALE   
 学院：JI_RUAN, DIAN_XIN, SHU_TONG   
+在经过重载之后，add函数新增了对字符串输入的支持，性别和学校的参数可以是字符串，以下是字符串可接收的有效值：   
+性别："男", "女", "MALE", "FEMALE"    
+学院："计软", "电信", "数统", "JI_RUAN", "DIAN_XIN", "SHU_TONG"   
 举例：   
 student* ptr = add("201983290999", "马保国", MALE, JI_RUAN, 1);    
 或   
 student* ptr{add("201983290999", "马保国", MALE, JI_RUAN, 1)};   
 函数设有1个返回值，会返回指向这个新建对象的指针，注意，add函数里面不包含对学科分数的登记，登记分数可以通过这个返回的指针，用下面即将提到的modify_score方法修改，切记要登记分数！   
 ### modify_score方法
+2个重载   
 2参数，int sub, int score   
+2参数，const char* sub, int score   
 注意，**这是student类的方法**，此方法可以用来修改学生的分数，设有2个参数，分别是需要修改的科目和分数   
-科目也是枚举类型：   
-科目：GAO_SHU, XIAN_DAI, CHENG_XU, GAI_TONG, DIAN_ZI, JIN_SHI, CHANG_WEI_FEN, XIN_HAO, OS, NET   
+科目是枚举类型或字符串：   
+科目（枚举）：GAO_SHU, XIAN_DAI, CHENG_XU, GAI_TONG, DIAN_ZI, JIN_SHI, CHANG_WEI_FEN, XIN_HAO, OS, NET   
+科目（字符串）："高数", "线代", "程序", "概统", "电子", "近世", "常微分", "信号", "操作系统", "网络"   
 写入参数的时候也是直接写汉字就可以了，不用加双引号   
 举例：   
 student* ptr{add("201983290999", "马保国", MALE, JI_RUAN, 1)};//ptr指向你新加入的学生   
