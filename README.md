@@ -5,6 +5,8 @@ the programme is trusteeshiped on github, the website is https://github.com/rude
 (pth)add the title of Developers at the end of file   
 (pth)add some examples in Tigs For Test Engineer   
 (pth)add reloads to function add and student::modify_score, please query details in Back-end Functions Introduction     
+(pth)add new requests to back_end test data
+(pth)modify the namespace to back_end_data to avoid collision
 ## Development Log
 (pth)the code is encoded with UTF-8   
 (pth)achieve function init and save   
@@ -18,11 +20,12 @@ the programme is trusteeshiped on github, the website is https://github.com/rude
 (pth)create main.cpp   
 (pth)have some quick tests on back-end functions   
 (pth)solve the bug in function init and add   
-(pth)waiting for test data of back-end   
+(pth)waiting for test back_end_data of back-end   
 (pth)add a reload to function add and student::modify_score, add the support of string input   
+(pth)modify the namespace to back_end_data   
 ## Back-end Functions Introduction
 想要使用后端数据，请添加"class_student.h"和"functions.h"头文件   
-后端用来交付的数据会存在data命名空间当中，使用时请using namespace data，或使用data::   
+后端用来交付的数据会存在back_end_data命名空间当中，使用时请using namespace back_end_data，或使用back_end_data::   
 后端使用的类名称为student    
 下面介绍后端函数接口的使用方法   
 ### init
@@ -35,8 +38,8 @@ the programme is trusteeshiped on github, the website is https://github.com/rude
 前端工程师也可以选择适当的时候，自动存储数据    
 ### seek
 1参数，const char* id_or_name
-此函数用来查找。接收一个参数id_or_name。将需要查找的对象的学号或者姓名输入，函数就会自动查找所有符合条件的对象，并将这些对象的指针，按照学号顺序存储在data命名空间的seek_res()数组中(**下标从0开始，以下不特别说明下标均从0开始**)(注意，存储的是**student对象类型的指针**)，   
-符合条件的结果数量会存储在data::seek_num整型变量中
+此函数用来查找。接收一个参数id_or_name。将需要查找的对象的学号或者姓名输入，函数就会自动查找所有符合条件的对象，并将这些对象的指针，按照学号顺序存储在back_end_data命名空间的seek_res()数组中(**下标从0开始，以下不特别说明下标均从0开始**)(注意，存储的是**student对象类型的指针**)，   
+符合条件的结果数量会存储在back_end_data::seek_num整型变量中
 ### add
 2个重载
 5参数，const char* id, const char* name, int sex, int school, int class_num   
@@ -92,7 +95,7 @@ get_total_score 无参数，返回总分
 1参数，int school   
 2参数，int school, int class_num   
 该函数实现学生按总分排序，两个重载分别实现了学院排序和班级排序，参数分别需要学院的枚举类型，学院的枚举类型和班级序号   
-函数会将排序好的结果存储在data::seek_res数组中(注意，**存储的是排好序的结果的指针**)，排序的总数量存储在data::seek_num中   
+函数会将排序好的结果存储在back_end_data::seek_res数组中(注意，**存储的是排好序的结果的指针**)，排序的总数量存储在back_end_data::seek_num中   
 ### sort_by_subject_score
 2个重载   
 2参数，int school, int subject   
@@ -122,6 +125,7 @@ get_total_score 无参数，返回总分
 ## Tigs for Test Engineer
 项目有不少的测试任务...
 ### Back-end Test
+***（新的要求）请把测试数据按照学号字典序排列（小前大后），并且注意下面性别和学院格式的更改，辛苦了 ：）***   
 首先需要你们测试的是后端的正确性，需要编写用来测试后端的大批量数据   
 后端的输入不负责健壮性检查，所以请确保你们的输入格式符合后端的规范;)   
 测试数据应当具有代表性和差异性，能够尽量检测出程序不完善的地方   
@@ -132,8 +136,8 @@ get_total_score 无参数，返回总分
 每一行中需要有该学生的信息，按顺序分别为：学号，姓名，性别，学院，班级，20个科目成绩，**每一项用空格隔开**   
 学号需要保证每个学生都不同，位数不超过14   
 姓名使用汉字，不超过9个字，学生之间应该**有适当的重名**   
-性别为MALE, FEMALE   
-学院可以是：JI_RUAN, DIAN_XIN, SHU_TONG   
+性别为整型1或2   
+学院为整型1，2或3   
 班级应该是一个整型数字，不要太大，应保证一个班级中有适量的学生   
 20个科目成绩可以是-1, -2或0到100，-2代表未修，-1代表在修，0到100代表已修，记录成绩   
 应当保证一个学院的学生修的学科基本相同，不同学院学院学生修的学科有差异   

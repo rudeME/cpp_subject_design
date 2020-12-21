@@ -6,16 +6,17 @@
 #include"class_student.h"
 #include"functions.h"
 using namespace std;
-using namespace data;
+using namespace back_end_data;
 
 int main()
 {
     init();
-    add("201983290995", "马保国", 0, 0, 11);
-    add("201983290991", "张三", 0, 0, 11);
-    add("201983290997", "李四", 0, 0, 11);
-    student* pnew{add("201983290400", "王二", 0, 0, 11)};
-    //pnew->modify_score(1, 90);
-    save();
+    sort_by_subject_score(JI_RUAN, 2);
+    for(int i = 0; i < seek_num; i++)
+    {
+        cout << seek_res[i]->get_id() << " " << seek_res[i]->get_name() << " ";
+        cout << seek_res[i]->get_score(2) << endl;
+    }
+    //save();
     return 0;
 }

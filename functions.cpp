@@ -7,22 +7,7 @@
 #include"class_student.h"
 #include"functions.h"
 using namespace std;
-
-struct link_list
-{
-    student* head;
-    student* end;
-    int num;//the num of students that accord with condition
-};
-
-namespace data
-{
-    link_list stu_ls;
-    student* seek_res[50005];
-    int seek_num;
-    int subject;
-}
-using namespace data;
+using namespace back_end_data;
 
 bool cmp_by_total(student* pa, student* pb){return pa->get_total_score() >= pb->get_total_score();}
 bool cmp_by_score(student* pa, student* pb){return pa->get_score(subject) >= pb->get_score(subject);}
@@ -52,6 +37,7 @@ void init()
         }
         stu_ls.end->next = pnew;
         stu_ls.end = pnew;
+        ++stu_ls.num;
     }
     OpenFile.close();
 }
@@ -214,7 +200,7 @@ void sort_by_subject_score(int school, int subject)
             seek_res[++seek_num] = ptr;
     if(seek_num == 0)
         return;
-    data::subject = subject;
+    back_end_data::subject = subject;
     sort(seek_res, seek_res + seek_num, cmp_by_score);
 }
 
@@ -227,7 +213,7 @@ void sort_by_subject_score(int school, int class_num, int subject)
             seek_res[++seek_num] = ptr;
     if(seek_num == 0)
         return;
-    data::subject = subject;
+    back_end_data::subject = subject;
     sort(seek_res, seek_res + seek_num, cmp_by_score);
 }
 

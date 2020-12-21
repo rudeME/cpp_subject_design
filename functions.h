@@ -1,9 +1,25 @@
+#ifndef CLASS_F
+#define CLASS_F
 #include<iostream>
 #include<cstdio>
 #include"class_student.h"
 using namespace std;
 
-namespace data{};
+struct link_list
+{
+    student* head;
+    student* end;
+    int num;//the num of students that accord with condition
+};
+
+namespace back_end_data
+{
+    static link_list stu_ls;
+    static student* seek_res[50005];
+    static int seek_num;
+    static int subject;
+}
+
 void init();
 void save();
 void seek(const char*);
@@ -24,3 +40,4 @@ double subject_pass_rate(int, int, int);
 double subject_average(int);
 double subject_average(int, int);
 double subject_average(int, int, int);
+#endif
