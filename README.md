@@ -8,6 +8,7 @@ the programme is trusteeshiped on github, the website is https://github.com/rude
 (pth)add new requests to back_end test data   
 (pth)modify the namespace to back_end_data to avoid collision   
 (pth)debugging the function that have something to do with sort   
+(pth)new require to Test Engeneer, please query details in Tigs For Test Engeneer   
 ## Development Log
 (pth)the code is encoded with UTF-8   
 (pth)achieve function init and save   
@@ -24,6 +25,7 @@ the programme is trusteeshiped on github, the website is https://github.com/rude
 (pth)waiting for test back_end_data of back-end   
 (pth)add a reload to function add and student::modify_score, add the support of string input   
 (pth)modify the namespace to back_end_data   
+(pth)modify the data in namespace back_end_data to inline    
 ## Back-end Functions Introduction
 想要使用后端数据，请添加"class_student.h"和"functions.h"头文件   
 后端用来交付的数据会存在back_end_data命名空间当中，使用时请using namespace back_end_data，或使用back_end_data::   
@@ -145,7 +147,8 @@ get_total_score 无参数，返回总分
 在满足上述条件的基础上，你们应当思索程序可能会对什么样的情况欠考虑，尽量编写能够发现程序漏洞的数据   
 后端的测试需求基本就是这样 \(//∇//)\   
 示例数据：   
-201983290999 王保果 MALE JI_RUAN 10 90 90 90 -1 90 70 85 -1 55 61 -2 -2 -2 -2 -2 -2 -2 -2 -2
+201983290999 王保果 MALE JI_RUAN 10 90 90 90 -1 90 70 85 -1 55 61 -2 -2 -2 -2 -2 -2 -2 -2 -2   
+***(新的要求)请重新编写一组数据，将名字都改为英文，记得不要超过19Byte，不用太多，1000条左右即可，其他要求不变***   
 ### Front-end Test
 测试前端程序的时候你们面对的是有图形化界面的程序   
 因为程序采用了图形化编程，所以其实可供测试健壮性的点并不多，但是程序中依然会有输入框   
