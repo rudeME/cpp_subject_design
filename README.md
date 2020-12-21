@@ -1,7 +1,10 @@
 # CPP_Subject_Design
 it is the repository of 317's cpp subject design   
 the programme is trusteeshiped on github, the website is https://github.com/rudeME/cpp_subject_design.git   
-## Development Note
+## README Refresh Log
+(pth)add the title of Developers at the end of file   
+(pth)add some examples in Tigs For Test Engineer   
+## Development Log
 (pth)the code is encoded with UTF-8   
 (pth)achieve function init and save   
 (pth)achieve function seek, add, del and del_all   
@@ -12,7 +15,9 @@ the programme is trusteeshiped on github, the website is https://github.com/rude
 (pth)achieve function subject_average, 3 reloaded  
 (pth)Back-end development is basically completed, waiting for debugging   
 (pth)create main.cpp   
-(pth)solve the bug in function init and add
+(pth)have some quick tests on back-end functions   
+(pth)solve the bug in function init and add   
+(pth)waiting for test data of back-end   
 ## Back-end Functions Introduction
 想要使用后端数据，请添加"class_student.h"和"functions.h"头文件   
 后端用来交付的数据会存在data命名空间当中，使用时请using namespace data，或使用data::   
@@ -158,7 +163,7 @@ get_total_score 无参数，返回总分
 记得反馈问题给工程师ヽ(￣д￣;)ノ=3=3=3   
 嗯，关于测试的事情就这么多  
 
-## Development members
+## Developers
 ***殷曙光 前端开发***   
 ***潘天航 后端开发***   
 ***邓志恒 测试工程师 作家***   
