@@ -14,10 +14,10 @@ struct link_list
 
 namespace back_end_data
 {
-    static link_list stu_ls;
-    static student* seek_res[50005];
-    static int seek_num;
-    static int subject;
+    inline link_list stu_ls;
+    inline student* seek_res[50005];
+    inline int seek_num;
+    inline int subject;
 }
 
 void init();
