@@ -6,7 +6,8 @@ the programme is trusteeshiped on github, the website is https://github.com/rude
 (pth)add some examples in Tigs For Test Engineer   
 (pth)add reloads to function add and student::modify_score, please query details in Back-end Functions Introduction     
 (pth)add new requests to back_end test data   
-(pth)modify the namespace to back_end_data to avoid collision
+(pth)modify the namespace to back_end_data to avoid collision   
+(pth)debugging the function that have something to do with sort   
 ## Development Log
 (pth)the code is encoded with UTF-8   
 (pth)achieve function init and save   
@@ -85,24 +86,24 @@ get_class_num 无参数，返回班级
 get_score 1参数，输入学科的枚举类型，返回对应学科分数   
 get_total_score 无参数，返回总分   
 ### del
-1参数，student* pdel   
+1参数，student* pdel    
 函数可以删除学生信息，需要向参数列表中提供该对象的指针，即可删除该学生信息   
 ### del_all
-无参数
+无参数   
 直接调用即可。此函数可以删除当前程序链表中的所有数据项，但在未保存之前不会影响txt文件，前端应当提供这个函数的按钮，但是应当谨慎使用这个函数，可以提醒用户确认之后再调用
 ### sort_by_total_score
-2个重载
+2个重载   
 1参数，int school   
 2参数，int school, int class_num   
 该函数实现学生按总分排序，两个重载分别实现了学院排序和班级排序，参数分别需要学院的枚举类型，学院的枚举类型和班级序号   
 函数会将排序好的结果存储在back_end_data::seek_res数组中(注意，**存储的是排好序的结果的指针**)，排序的总数量存储在back_end_data::seek_num中   
 ### sort_by_subject_score
-2个重载   
+2个重载    
 2参数，int school, int subject   
 3参数，int school, int class_num, int subject   
 函数实现单门科目的排序，可以按学院或者按班级，用法和sort_by_total_score类似，只不过参数多了一个学科枚举类型   
 ### sort_by_id
-3个重载
+3个重载   
 0参数   
 1参数 int school   
 2参数 int school, int class_num   
@@ -136,8 +137,8 @@ get_total_score 无参数，返回总分
 每一行中需要有该学生的信息，按顺序分别为：学号，姓名，性别，学院，班级，20个科目成绩，**每一项用空格隔开**   
 学号需要保证每个学生都不同，位数不超过14   
 姓名使用汉字，不超过9个字，学生之间应该**有适当的重名**   
-性别为整型1或2   
-学院为整型1，2或3   
+性别为整型0或1   
+学院为整型0，1或2   
 班级应该是一个整型数字，不要太大，应保证一个班级中有适量的学生   
 20个科目成绩可以是-1, -2或0到100，-2代表未修，-1代表在修，0到100代表已修，记录成绩   
 应当保证一个学院的学生修的学科基本相同，不同学院学院学生修的学科有差异   

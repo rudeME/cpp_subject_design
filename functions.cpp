@@ -9,8 +9,8 @@
 using namespace std;
 using namespace back_end_data;
 
-bool cmp_by_total(student* pa, student* pb){return pa->get_total_score() >= pb->get_total_score();}
-bool cmp_by_score(student* pa, student* pb){return pa->get_score(subject) >= pb->get_score(subject);}
+bool cmp_by_total(student* pa, student* pb) {return pa->get_total_score() >= pb->get_total_score();}
+bool cmp_by_score(student* pa, student* pb) {return pa->get_score(subject) >= pb->get_score(subject);}
 
 void init()
 {
@@ -173,7 +173,7 @@ void sort_by_total_score(int school)
     student* ptr{stu_ls.head->next};
     for(; NULL != ptr; ptr = ptr->next)
         if(ptr->get_school() == school)
-            seek_res[++seek_num] = ptr;
+            seek_res[seek_num++] = ptr;
     if(seek_num == 0)
         return;
     sort(seek_res, seek_res + seek_num, cmp_by_total);
@@ -185,7 +185,7 @@ void sort_by_total_score(int school, int class_num)
     student* ptr{stu_ls.head->next};
     for(; NULL != ptr; ptr = ptr->next)
         if(ptr->get_school() == school && ptr->get_class_num() == class_num)
-            seek_res[++seek_num] = ptr;
+            seek_res[seek_num++] = ptr;
     if(seek_num == 0)
         return;
     sort(seek_res, seek_res + seek_num, cmp_by_total);
@@ -197,9 +197,10 @@ void sort_by_subject_score(int school, int subject)
     student* ptr{stu_ls.head->next};
     for(; NULL != ptr; ptr = ptr->next)
         if(ptr->get_school() == school)
-            seek_res[++seek_num] = ptr;
+            seek_res[seek_num++] = ptr;
     if(seek_num == 0)
         return;
+    seek_num = seek_num;
     back_end_data::subject = subject;
     sort(seek_res, seek_res + seek_num, cmp_by_score);
 }
@@ -210,7 +211,7 @@ void sort_by_subject_score(int school, int class_num, int subject)
     student* ptr{stu_ls.head->next};
     for(; NULL != ptr; ptr = ptr->next)
         if(ptr->get_school() == school && ptr->get_class_num() == class_num)
-            seek_res[++seek_num] = ptr;
+            seek_res[seek_num++] = ptr;
     if(seek_num == 0)
         return;
     back_end_data::subject = subject;
@@ -222,7 +223,7 @@ void sort_by_id()
     seek_num = 0;
     student* ptr{stu_ls.head->next};
     for(; NULL != ptr; ptr = ptr->next)
-        seek_res[++seek_num] = ptr;
+        seek_res[seek_num++] = ptr;
 }
 
 void sort_by_id(int school)
@@ -231,7 +232,7 @@ void sort_by_id(int school)
     student* ptr{stu_ls.head->next};
     for(; NULL != ptr; ptr = ptr->next)
         if(ptr->get_school() == school)
-            seek_res[++seek_num] = ptr;
+            seek_res[seek_num++] = ptr;
 }
 
 void sort_by_id(int school, int class_num)
@@ -240,7 +241,7 @@ void sort_by_id(int school, int class_num)
     student* ptr = stu_ls.head->next;
     for(; NULL != ptr; ptr = ptr->next)
         if(ptr->get_school() == school && ptr->get_class_num() == class_num)
-            seek_res[++seek_num] = ptr;
+            seek_res[seek_num++] = ptr;
 }
 
 double subject_pass_rate(int subject)
