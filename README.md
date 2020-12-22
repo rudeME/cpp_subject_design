@@ -32,6 +32,7 @@ the programme is trusteeshiped on github, the website is https://github.com/rude
 (pth)add new judgements to functions add, sort, subject_pass_rate and subject_average to improve the robustness, they can test the correctness of input data, if there exists phenomenons of data incorrectness, functions will return NULL or -1.0 or false, please consult details in just behind the title of Back-end Functions Introduction     
 (pth)convert all functions in class student to return bool   
 (pth)add the ability to function add of test id that if every bit of it is beteween 0 and 9   
+(pth)add string support of get data, please query details in Back-end Functions Introduction      
 ## Back-end Functions Introduction
 想要使用后端数据，请添加"class_student.h"和"functions.h"头文件   
 后端用来交付的数据会存在back_end_data命名空间当中，使用时请using namespace back_end_data，或使用back_end_data::   
@@ -100,9 +101,11 @@ bool ok = ptr->modify_score(GAO_SHU, 90);//若ok为true，这样即可登记高�
 get_id 无参数，返回学号   
 get_name 无参数，返回姓名   
 get_sex 无参数，返回性别，0为男，1为女   
+get_sex_string 返回性别的const char*变量
 get_school 无参数，返回学院   
+get_school_string 无参数，返回学院的const char*
 get_class_num 无参数，返回班级   
-get_score 1参数，输入学科的枚举类型，返回对应学科分数   
+get_score 1参数，输入学科的枚举类型或const char*，返回对应学科分数   
 get_total_score 无参数，返回总分   
 ### del
 1参数，student* pdel    

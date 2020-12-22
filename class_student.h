@@ -15,9 +15,12 @@ public:
     char* get_id();
     char* get_name();
     int get_sex();
+    const char* get_sex_string();//
     int get_school();
+    const char* get_school_string();//
     int get_class_num();
     int get_score(int);
+    int get_score(const char*);//
     int get_total_score();
     bool modify_school(int);
     bool modify_school(const char*);

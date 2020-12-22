@@ -22,11 +22,59 @@ char* student::get_name(){return name;}
 
 int student::get_sex(){return stu_sex;}
 
+const char* student::get_sex_string()
+{
+    int a{this->get_sex()};
+    if(a == 0)
+        return "男";
+    else 
+        return "女";
+}
+
 int student::get_school(){return stu_school;}
+
+const char* student::get_school_string()
+{
+    int a{this->get_school()};
+    if(a == 0)
+        return "计软";
+    else if(a == 1)
+        return "电信";
+    else 
+        return "数统";
+}
 
 int student::get_class_num(){return class_num;}
 
 int student::get_score(int sub){return score[sub];}
+
+int student::get_score(const char* sub)
+{
+    int sub_int, score;
+    if(strcmp(sub, "高数") == 0)
+        sub_int = GAO_SHU;
+    else if(strcmp(sub, "程序") == 0)
+        sub_int = CHENG_XU;
+    else if(strcmp(sub, "电子") == 0)
+        sub_int = DIAN_ZI;
+    else if(strcmp(sub, "常微分") == 0)
+        sub_int = CHANG_WEI_FEN;
+    else if(strcmp(sub, "操作系统") == 0)
+        sub_int = OS;
+    else if(strcmp(sub, "线代") == 0)
+        sub_int = XIAN_DAI;
+    else if(strcmp(sub, "概统") == 0)
+        sub_int = GAI_TONG;
+    else if(strcmp(sub, "近世") == 0)
+        sub_int = JIN_SHI;
+    else if(strcmp(sub, "信号") == 0)
+        sub_int = XIN_HAO;
+    else if(strcmp(sub, "网络") == 0)
+        sub_int = NET;
+    else 
+        return -3;
+    return this->get_score(sub_int);
+}
 
 int student::get_total_score(){return total_score;}
 
