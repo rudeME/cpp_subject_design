@@ -137,6 +137,9 @@ void seek(const char* id_or_name)
 
 student* add(const char* id, const char* name, int sex, int school, int class_num)
 {
+    for(int i = 0; i < strlen(id); i++)
+        if(id[i] < '0' || id[i] > '9')
+            return NULL;
     if(sizeof(id) > 14 || sizeof(name) > 19 || !sex_correctness(sex) || !school_correctness(school))
         return NULL;
     student* pnew, *ptr{stu_ls.head};

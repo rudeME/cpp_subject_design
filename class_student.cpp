@@ -11,7 +11,7 @@ student::student(const char* id, const char* name, int stu_sex, int stu_school, 
     strcpy(student::id, id);
     strcpy(student::name, name);
     for(int i = 0; i<= 19; i++)
-        score[i] = -1;
+        score[i] = -2;
     total_score = 0;
     next = NULL;
 }

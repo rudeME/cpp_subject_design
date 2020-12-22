@@ -26,12 +26,12 @@ the programme is trusteeshiped on github, the website is https://github.com/rude
 (pth)solve the bug in function init and add   
 (pth)waiting for test back_end_data of back-end   
 (pth)add a reload to function add and student::modify_score, add the support of string input   
-***
 (pth)modify the namespace to back_end_data   
 (pth)modify the data in namespace back_end_data to inline    
 (pth)add new reloads to all functions that have sth to do with string input, adding the support of string input, please query the details in Back-end Functions Introduction    
 (pth)add new judgements to functions add, sort, subject_pass_rate and subject_average to improve the robustness, they can test the correctness of input data, if there exists phenomenons of data incorrectness, functions will return NULL or -1.0 or false, please consult details in just behind the title of Back-end Functions Introduction     
 (pth)convert all functions in class student to return bool   
+(pth)add the ability to function add of test id that if every bit of it is beteween 0 and 9   
 ## Back-end Functions Introduction
 想要使用后端数据，请添加"class_student.h"和"functions.h"头文件   
 后端用来交付的数据会存在back_end_data命名空间当中，使用时请using namespace back_end_data，或使用back_end_data::   
