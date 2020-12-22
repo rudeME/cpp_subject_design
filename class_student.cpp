@@ -30,21 +30,53 @@ int student::get_score(int sub){return score[sub];}
 
 int student::get_total_score(){return total_score;}
 
-void student::modify_school(int stu_school){student::stu_school = stu_school;}
-
-void student::modify_class_num(int class_num){student::class_num = class_num;}
-
-void student::modify_score(int sub, int score)
+bool student::modify_school(int stu_school)
 {
+    if(stu_school == 0 || stu_school == 1 || stu_school == 2)
+    {
+        student::stu_school = stu_school;
+        return true;
+    }
+    return false;
+}
+
+bool student::modify_school(const char* stu_school)
+{
+    int a;
+    if(strcmp(stu_school, "计软") == 0 || strcmp(stu_school, "JI_RUAN") == 0)
+        a = JI_RUAN;
+    else if(strcmp(stu_school, "电信") == 0 || strcmp(stu_school, "DIAN_XIN") == 0)
+        a = DIAN_XIN;
+    else if(strcmp(stu_school, "数统") == 0 || strcmp(stu_school, "SHU_TONG") == 0)
+        a = SHU_TONG;
+    else
+        return false;
+    return this->modify_school(a);
+}
+
+bool student::modify_class_num(int class_num)
+{
+    if(class_num > 0)
+    {
+        student::class_num = class_num;
+        return true;
+    }
+}
+
+bool student::modify_score(int sub, int score)
+{
+    if(sub < 0 || sub > 19 || score < -2 || score > 100)
+        return false;
     int origin = student::score[sub];
     student::score[sub] = score;
     if(origin == -1 || origin == -2)
         total_score += score;
     else 
         total_score += score - origin;
+    return true;
 }
 
-void student::modify_score(const char* sub, int score)
+bool student::modify_score(const char* sub, int score)
 {
     int sub_int;
     if(strcmp(sub, "高数") == 0)
@@ -68,6 +100,6 @@ void student::modify_score(const char* sub, int score)
     else if(strcmp(sub, "网络") == 0)
         sub_int = NET;
     else 
-        return;
-    this->modify_score(sub_int, score);
+        return false;
+    return this->modify_score(sub_int, score);
 }

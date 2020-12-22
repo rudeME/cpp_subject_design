@@ -19,10 +19,11 @@ public:
     int get_class_num();
     int get_score(int);
     int get_total_score();
-    void modify_school(int);
-    void modify_class_num(int);
-    void modify_score(int, int);
-    void modify_score(const char*, int);
+    bool modify_school(int);
+    bool modify_school(const char*);
+    bool modify_class_num(int);
+    bool modify_score(int, int);
+    bool modify_score(const char*, int);
     student* next;
 protected:
     char id[15];

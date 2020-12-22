@@ -9,6 +9,8 @@ the programme is trusteeshiped on github, the website is https://github.com/rude
 (pth)modify the namespace to back_end_data to avoid collision   
 (pth)debugging the function that have something to do with sort   
 (pth)new require to Test Engeneer, please query details in Tigs For Test Engeneer   
+(pth)adding support of functions' string input   
+(pth)new modify to imporve robustness, please query details in Development Log    
 ## Development Log
 (pth)the code is encoded with UTF-8   
 (pth)achieve function init and save   
@@ -24,13 +26,25 @@ the programme is trusteeshiped on github, the website is https://github.com/rude
 (pth)solve the bug in function init and add   
 (pth)waiting for test back_end_data of back-end   
 (pth)add a reload to function add and student::modify_score, add the support of string input   
+***
 (pth)modify the namespace to back_end_data   
 (pth)modify the data in namespace back_end_data to inline    
+(pth)add new reloads to all functions that have sth to do with string input, adding the support of string input, please query the details in Back-end Functions Introduction    
+(pth)add new judgements to functions add, sort, subject_pass_rate and subject_average to improve the robustness, they can test the correctness of input data, if there exists phenomenons of data incorrectness, functions will return NULL or -1.0 or false, please consult details in just behind the title of Back-end Functions Introduction     
+(pth)convert all functions in class student to return bool   
 ## Back-end Functions Introduction
 想要使用后端数据，请添加"class_student.h"和"functions.h"头文件   
 后端用来交付的数据会存在back_end_data命名空间当中，使用时请using namespace back_end_data，或使用back_end_data::   
 后端使用的类名称为student    
-下面介绍后端函数接口的使用方法   
+***新增健壮性检查：***    
+现在所有的函数都会对输入的数据进行检查，在add函数中，字符串超长的，学院和性别不满足要求的，会返回NULL指针，所以当使用add函数，返回NULL指针的时候，代表参数不符合规范，在前端一定要对返回NULL的情况特判。在各种sort函数中，若参数中的学院，性别，班级，科目不符合要求(即和目标字符串不匹配)，seek_num变量会是0，所以要对seek_num是0的情况做特别判断。在通过率和平均分的函数中，若出现参数错误或除0错误，会返回-1.0，所以前端要对这种情况特别判断   
+关于student类中的方法也加入了健壮性检查，modify_school, modify_class_num, modify_score这三个方法，返回值由void改为了bool。当参数中出现不符合要求的情况的时候，方法的返回值会是false，参数正确，方法运行正常的时候，会返回true。所以使用这些方法的时候一定要接收返回值，并判断返回值正常和不正常的时候分别需要干哪些事情。   
+以上已经说明了所有函数或方法在出现接收参数异常的时候的返回值情况，下面的函数说明中将**不再赘述**这些特殊情况，所以请仔细阅读以上说明   
+其实**后端已经为你做了几乎所有健壮性检查的功能**，总结一下，后端会判断学号，姓名字符串有没有溢出，会判断性别有没有出现不是男或女的情况，会判断学院是否不是原定的三个，会判断班级数是否大于0，会判断分数修改分数时，分数在不在-1, -2, 0到100这个区间，会判断统计通过率和平均分的时候是否出现除0错误    
+现在你在前端接收数据的时候已经不需要判断数据的合法性了，你只需要把数据输入后端，后端会为你判断数据合法性，你唯一要做的是接收后端函数或方法的返回值，因为返回值是后端告诉你数据是否合法的媒介，当返回值出现非正常情况的时候，请在前端告知用户输入非法，并让用户重新输入数据   
+**上面这段内容非常重要**，请认真地阅读，要做到**了解接口的返回值的所有可能性，并且能正确处理这些情况**   
+此外，请再次仔细阅读所有函数和方法接口的使用方法，若有后端未考虑到的特殊情况，请告知后端工程师，或在前端处理这些异常    
+**下面介绍后端函数接口的使用方法**   
 ### init
 无参数，直接调用即可     
 函数作用是初始化数据，从link_list.txt文件中读取数据， 并建立链表，需在main函数的开头使用   
@@ -64,20 +78,23 @@ student* ptr{add("201983290999", "马保国", MALE, JI_RUAN, 1)};
 2个重载   
 2参数，int sub, int score   
 2参数，const char* sub, int score   
+1返回值 bool
 注意，**这是student类的方法**，此方法可以用来修改学生的分数，设有2个参数，分别是需要修改的科目和分数   
 科目是枚举类型或字符串：   
-科目（枚举）：GAO_SHU, XIAN_DAI, CHENG_XU, GAI_TONG, DIAN_ZI, JIN_SHI, CHANG_WEI_FEN, XIN_HAO, OS, NET   
-科目（字符串）："高数", "线代", "程序", "概统", "电子", "近世", "常微分", "信号", "操作系统", "网络"   
-写入参数的时候也是直接写汉字就可以了，不用加双引号   
+当参数没有问题，正确修改的时候，会返回true，否则会返回false    
 举例：   
 student* ptr{add("201983290999", "马保国", MALE, JI_RUAN, 1)};//ptr指向你新加入的学生   
-ptr->modify_score(GAO_SHU, 90);//这样即可登记高等数学的分数为90   
+bool ok = ptr->modify_score(GAO_SHU, 90);//若ok为true，这样即可登记高等数学的分数为90   
 ### modify_school方法
 1参数，int stu_school   
-注意，这是student类的方法，此方法可以改变学生的学院，参数填枚举类型即可   
+1返回值 bool
+注意，这是student类的方法，此方法可以改变学生的学院，参数填枚举类型或字符串即可   
+当参数没有问题，正确修改的时候，会返回true，否则会返回false    
 ### modify_class_num方法
 1参数，int class_num   
+1返回值 bool
 注意，这是student类的方法，此方法可以改变学生的班级，参数填班级号即可   
+当参数没有问题，正确修改的时候，会返回true，否则（班机数小于0）会返回false    
 ### 其他获取信息的方法
 注意，以下都是student类的方法，可以通过对象指针来调用    
 get_id 无参数，返回学号   
@@ -94,35 +111,47 @@ get_total_score 无参数，返回总分
 无参数   
 直接调用即可。此函数可以删除当前程序链表中的所有数据项，但在未保存之前不会影响txt文件，前端应当提供这个函数的按钮，但是应当谨慎使用这个函数，可以提醒用户确认之后再调用
 ### sort_by_total_score
-2个重载   
+4个重载   
 1参数，int school   
+1参数，const char* school   
 2参数，int school, int class_num   
-该函数实现学生按总分排序，两个重载分别实现了学院排序和班级排序，参数分别需要学院的枚举类型，学院的枚举类型和班级序号   
+2参数，const char* school, int class_num   
+该函数实现学生按总分排序，两个重载分别实现了学院排序和班级排序，参数分别需要学院的枚举类型或字符数组，学院和班级序号   
 函数会将排序好的结果存储在back_end_data::seek_res数组中(注意，**存储的是排好序的结果的指针**)，排序的总数量存储在back_end_data::seek_num中   
 ### sort_by_subject_score
-2个重载    
+4个重载    
 2参数，int school, int subject   
+2参数，const char* school, const char* subject   
 3参数，int school, int class_num, int subject   
-函数实现单门科目的排序，可以按学院或者按班级，用法和sort_by_total_score类似，只不过参数多了一个学科枚举类型   
+3参数，const char* school, int class_num, const char* subject   
+函数实现单门科目的排序，可以按学院或者按班级，用法和sort_by_total_score类似，只不过参数多了一个学科枚举类型或字符数组   
 ### sort_by_id
-3个重载   
+5个重载   
 0参数   
 1参数 int school   
+1参数 const char* school   
 2参数 int school, int class_num   
+2参数 const char* school, int class_num   
 函数实现按学号排序，无参数时按学校，1参数按学院，2参数按班级。用法依然和sort_by_total_score类似   
 ### subject_pass_rate
-3个重载   
+6个重载   
 1参数 int subject   
+1参数 const char* subject   
 2参数 int school, int subject   
+2参数 const char* school, const char* subject   
 3参数 int school, int class_num, int subject   
+3参数 const char* school, int class_num, const char* subject   
 1返回值 double   
-该函数计算通过率，1个参数仅需提供学科枚举类型，计算全校通过率，2参数需提供学院枚举类型和学科，计算学院通过率，3参数需提供学院，班级和学科，计算班级通过率   
+该函数计算通过率，1个参数仅需提供学科枚举类型或字符串，计算全校通过率，2参数需提供学院和学科，计算学院通过率，3参数需提供学院，班级和学科，计算班级通过率   
 返回一个double类型变量，为通过率   
 ### subject_average
-3个重载   
+6个重载   
 1参数 int subject   
+1参数 const char* subject   
 2参数 int school, int subject   
+2参数 const char* school, const char* subject   
 3参数 int school, int class_num, int subject   
+3参数 const char* school, int class_num, const char* subject   
 1返回值 double   
 函数计算科目平均分，用法和subject_pass_rate类似，返回一个double类型，是平均分   
 ## Tigs for Test Engineer

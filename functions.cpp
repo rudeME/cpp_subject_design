@@ -12,6 +12,65 @@ using namespace back_end_data;
 bool cmp_by_total(student* pa, student* pb) {return pa->get_total_score() >= pb->get_total_score();}
 bool cmp_by_score(student* pa, student* pb) {return pa->get_score(subject) >= pb->get_score(subject);}
 
+bool sex_correctness(int sex)
+{
+    if(sex == 0 || sex == 1)
+        return true;
+    return false;
+}
+
+bool school_correctness(int school)
+{
+    if(school == 0 || school == 1 || school == 2)
+        return true;
+    return false;
+}
+
+bool subject_correctness(int subject)
+{
+    if(subject < 0 || subject > 19)
+        return false;
+    return true;
+}
+
+int modify_to_int(const char* str)
+{
+    int a;
+    if(strcmp(str, "男") == 0 || strcmp(str, "MALE") == 0)
+        a = MALE;
+    else if(strcmp(str, "女") == 0 || strcmp(str, "FEMALE") == 0)
+        a = FEMALE;
+    else if(strcmp(str, "计软") == 0 || strcmp(str, "JI_RUAN") == 0)
+        a = JI_RUAN;
+    else if(strcmp(str, "电信") == 0 || strcmp(str, "DIAN_XIN") == 0)
+        a = DIAN_XIN;
+    else if(strcmp(str, "数统") == 0 || strcmp(str, "SHU_TONG") == 0)
+        a = SHU_TONG;
+    else if(strcmp(str, "高数") == 0)
+        a = GAO_SHU;
+    else if(strcmp(str, "程序") == 0)
+        a = CHENG_XU;
+    else if(strcmp(str, "电子") == 0)
+        a = DIAN_ZI;
+    else if(strcmp(str, "常微分") == 0)
+        a = CHANG_WEI_FEN;
+    else if(strcmp(str, "操作系统") == 0)
+        a = OS;
+    else if(strcmp(str, "线代") == 0)
+        a = XIAN_DAI;
+    else if(strcmp(str, "概统") == 0)
+        a = GAI_TONG;
+    else if(strcmp(str, "近世") == 0)
+        a = JIN_SHI;
+    else if(strcmp(str, "信号") == 0)
+        a = XIN_HAO;
+    else if(strcmp(str, "网络") == 0)
+        a = NET;
+    else 
+        return -1;
+    return a;
+}
+
 void init()
 {
     student* pnew;
@@ -78,6 +137,8 @@ void seek(const char* id_or_name)
 
 student* add(const char* id, const char* name, int sex, int school, int class_num)
 {
+    if(sizeof(id) > 14 || sizeof(name) > 19 || !sex_correctness(sex) || !school_correctness(school))
+        return NULL;
     student* pnew, *ptr{stu_ls.head};
     pnew = new student{id, name, sex, school, class_num};
     for(;;ptr = ptr->next)
@@ -119,22 +180,7 @@ student* add(const char* id, const char* name, int sex, int school, int class_nu
 
 student* add(const char* id, const char* name, const char* sex, const char* school, int class_num)
 {
-    int sex_int, school_int;
-    if(strcmp(sex, "男") == 0 || strcmp(sex, "MALE") == 0)
-        sex_int = MALE;
-    else if(strcmp(sex, "女") == 0 || strcmp(sex, "FEMALE") == 0)
-        sex_int = FEMALE;
-    else 
-        return NULL;
-    if(strcmp(school, "计软") == 0 || strcmp(school, "JI_RUAN") == 0)
-        school_int = JI_RUAN;
-    else if(strcmp(school, "电信") == 0 || strcmp(school, "DIAN_XIN") == 0)
-        school_int = DIAN_XIN;
-    else if(strcmp(school, "数统") == 0 || strcmp(school, "SHU_TONG") == 0)
-        school_int = SHU_TONG;
-    else 
-        return NULL;
-    return add(id, name, sex_int, school_int, class_num);
+    return add(id, name, modify_to_int(sex), modify_to_int(school), class_num);
 }
 
 
@@ -169,6 +215,8 @@ void del_all()
 
 void sort_by_total_score(int school)
 {
+    if(!school_correctness(school))
+        return;
     seek_num = 0;
     student* ptr{stu_ls.head->next};
     for(; NULL != ptr; ptr = ptr->next)
@@ -179,8 +227,15 @@ void sort_by_total_score(int school)
     sort(seek_res, seek_res + seek_num, cmp_by_total);
 }
 
+void sort_by_total_score(const char* school)
+{
+    sort_by_total_score(modify_to_int(school));
+}
+
 void sort_by_total_score(int school, int class_num)
 {
+    if(!school_correctness(school))
+        return;
     seek_num = 0;
     student* ptr{stu_ls.head->next};
     for(; NULL != ptr; ptr = ptr->next)
@@ -191,8 +246,15 @@ void sort_by_total_score(int school, int class_num)
     sort(seek_res, seek_res + seek_num, cmp_by_total);
 }
 
+void sort_by_total_score(const char* school, int class_num)
+{
+    sort_by_total_score(modify_to_int(school), class_num);
+}
+
 void sort_by_subject_score(int school, int subject)
 {
+    if(!school_correctness(school) || !subject_correctness(subject))
+        return;
     seek_num = 0;
     student* ptr{stu_ls.head->next};
     for(; NULL != ptr; ptr = ptr->next)
@@ -205,8 +267,15 @@ void sort_by_subject_score(int school, int subject)
     sort(seek_res, seek_res + seek_num, cmp_by_score);
 }
 
+void sort_by_subject_score(const char* school, const char* subject)
+{
+    sort_by_subject_score(modify_to_int(school), modify_to_int(subject));
+}
+
 void sort_by_subject_score(int school, int class_num, int subject)
 {
+    if(!school_correctness(school) || !subject_correctness(subject))
+        return;
     seek_num = 0;
     student* ptr{stu_ls.head->next};
     for(; NULL != ptr; ptr = ptr->next)
@@ -216,6 +285,11 @@ void sort_by_subject_score(int school, int class_num, int subject)
         return;
     back_end_data::subject = subject;
     sort(seek_res, seek_res + seek_num, cmp_by_score);
+}
+
+void sort_by_subject_score(const char* school, int class_num, const char* subject)
+{
+    sort_by_subject_score(modify_to_int(school), class_num, modify_to_int(subject));
 }
 
 void sort_by_id()
@@ -228,6 +302,8 @@ void sort_by_id()
 
 void sort_by_id(int school)
 {
+    if(!school_correctness(school))
+        return;
     seek_num = 0;
     student* ptr{stu_ls.head->next};
     for(; NULL != ptr; ptr = ptr->next)
@@ -235,8 +311,15 @@ void sort_by_id(int school)
             seek_res[seek_num++] = ptr;
 }
 
+void sort_by_id(const char* school)
+{
+    sort_by_id(modify_to_int(school));
+}
+
 void sort_by_id(int school, int class_num)
 {
+    if(!school_correctness(school))
+        return;
     seek_num = 0;
     student* ptr = stu_ls.head->next;
     for(; NULL != ptr; ptr = ptr->next)
@@ -244,8 +327,15 @@ void sort_by_id(int school, int class_num)
             seek_res[seek_num++] = ptr;
 }
 
+void sort_by_id(const char* school, int class_num)
+{
+    sort_by_id(modify_to_int(school), class_num);
+}
+
 double subject_pass_rate(int subject)
 {
+    if(!subject_correctness(subject))
+        return -1.0;
     int total{0}, acc{0};
     student* ptr{stu_ls.head->next};
     for(; NULL != ptr; ptr = ptr->next)
@@ -255,11 +345,20 @@ double subject_pass_rate(int subject)
             if(ptr->get_score(subject) >= 60)
                 ++acc;
         }
+    if(total == 0)
+        return -1.0;
     return double(acc) / double(total);
+}
+
+double subject_pass_rate(const char* subject)
+{
+    return subject_pass_rate(modify_to_int(subject));
 }
 
 double subject_pass_rate(int school, int subject)
 {
+    if(!school_correctness(school) || !subject_correctness(subject))
+        return -1.0;
     int total{0}, acc{0};
     student* ptr{stu_ls.head->next};
     for(; NULL != ptr; ptr = ptr->next)
@@ -269,11 +368,20 @@ double subject_pass_rate(int school, int subject)
             if(ptr->get_score(subject) >= 60)
                 ++acc;
         }
+    if(total == 0)
+        return -1.0;
     return double(acc) / double(total);
+}
+
+double subject_pass_rate(const char* school, const char* subject)
+{
+    return subject_pass_rate(modify_to_int(school), modify_to_int(subject));
 }
 
 double subject_pass_rate(int school, int class_num, int subject)
 {
+    if(!school_correctness(school) || !subject_correctness(subject))
+        return -1.0;
     int total{0}, acc{0};
     student* ptr{stu_ls.head->next};
     for(; NULL != ptr; ptr = ptr->next)
@@ -283,11 +391,20 @@ double subject_pass_rate(int school, int class_num, int subject)
             if(ptr->get_score(subject) >= 60)
                 ++acc;
         }
+    if(total == 0)
+        return -1.0;
     return double(acc) / double(total);
+}
+
+double subject_pass_rate(const char* school, int class_num, const char* subject)
+{
+    return subject_pass_rate(modify_to_int(school), class_num, modify_to_int(subject));
 }
 
 double subject_average(int subject)
 {
+    if(!subject_correctness(subject))
+        return -1.0;
     int total_score{0}, total{0};
     student* ptr{stu_ls.head->next};
     for(; NULL != ptr; ptr = ptr->next)
@@ -296,11 +413,20 @@ double subject_average(int subject)
             ++total;
             total_score += ptr->get_score(subject);
         }
+    if(total == 0)
+        return -1.0;
     return double(total_score) / double(total);
+}
+
+double subject_average(const char* subject)
+{
+    return subject_average(modify_to_int(subject));
 }
 
 double subject_average(int school, int subject)
 {
+    if(!school_correctness(school) || !subject_correctness(subject))
+        return -1.0;
     int total_score{0}, total{0};
     student* ptr{stu_ls.head->next};
     for(; NULL != ptr; ptr = ptr->next)
@@ -309,11 +435,20 @@ double subject_average(int school, int subject)
             ++total;
             total_score += ptr->get_score(subject);
         }
+    if(total == 0)
+        return -1.0;
     return double(total_score) / double(total);
+}
+
+double subject_average(const char* school, const char* subject)
+{
+    return subject_average(modify_to_int(school), modify_to_int(subject));
 }
 
 double subject_average(int school, int class_num, int subject)
 {
+    if(!school_correctness(school) || !subject_correctness(subject))
+        return -1.0;
     int total_score{0}, total{0};
     student* ptr{stu_ls.head->next};
     for(; NULL != ptr; ptr = ptr->next)
@@ -322,5 +457,12 @@ double subject_average(int school, int class_num, int subject)
             ++total;
             total_score += ptr->get_score(subject);
         }
+    if(total == 0)
+        return -1.0;
     return double(total_score) / double(total);
+}
+
+double subject_average(const char* school, int class_num, const char* subject)
+{
+    return subject_average(modify_to_int(school), class_num, modify_to_int(subject));
 }
