@@ -13,6 +13,7 @@ student::student(const char* id, const char* name, int stu_sex, int stu_school, 
     for(int i = 0; i<= 19; i++)
         score[i] = -2;
     total_score = 0;
+    check = 0;
     next = NULL;
 }
 
@@ -46,7 +47,12 @@ const char* student::get_school_string()
 
 int student::get_class_num(){return class_num;}
 
-int student::get_score(int sub){return score[sub];}
+int student::get_score(int sub)
+{
+    if(sub >= 0 && sub < 20)
+        return score[sub];
+    return -3;
+}
 
 int student::get_score(const char* sub)
 {
@@ -77,6 +83,10 @@ int student::get_score(const char* sub)
 }
 
 int student::get_total_score(){return total_score;}
+
+int student::get_check() {return check;}
+
+void student::modify_check(int check) {student::check = check;}
 
 bool student::modify_school(int stu_school)
 {

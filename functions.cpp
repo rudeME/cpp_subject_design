@@ -139,23 +139,42 @@ student* add(const char* id, const char* name, int sex, int school, int class_nu
 {
     for(int i = 0; i < strlen(id); i++)
         if(id[i] < '0' || id[i] > '9')
-            return NULL;
-    if(sizeof(id) > 14 || sizeof(name) > 19 || !sex_correctness(sex) || !school_correctness(school))
-        return NULL;
+        {
+            student* perr;
+            perr = new student{"NULL", "NULL", 0, 0, 0};
+            perr->modify_check(2);
+            return perr;
+        }
+    if(sizeof(id) > 14 || sizeof(name) > 19)
+    {
+        student* perr;
+        perr = new student{"NULL", "NULL", 0, 0, 0};
+        perr->modify_check(1);
+        return perr;
+    }
+    if(!sex_correctness(sex))
+    {
+        student* perr;
+        perr = new student{"NULL", "NULL", 0, 0, 0};
+        perr->modify_check(3);
+        return perr;
+    }
+    if(!school_correctness(school))
+    {
+        student* perr;
+        perr = new student{"NULL", "NULL", 0, 0, 0};
+        perr->modify_check(4);
+        return perr;
+    }
     student* pnew, *ptr{stu_ls.head};
     pnew = new student{id, name, sex, school, class_num};
     for(;;ptr = ptr->next)
     {
         if(NULL == ptr->next)
         {
-            if(ptr == stu_ls.head || strcmp(ptr->get_id(), id) < 0)
-            {
-                ptr->next = pnew;
-                stu_ls.end = pnew;
-                break;
-            }
-            else 
-                return NULL;
+            ptr->next = pnew;
+            stu_ls.end = pnew;
+            break;
         }
         if(ptr == stu_ls.head)
         {
@@ -174,8 +193,15 @@ student* add(const char* id, const char* name, int sex, int school, int class_nu
             ptr->next = pnew;
             break;
         }
-        if(strcmp(ptr->get_id(), id) == 0)
-            return NULL;
+        if(strcmp(ptr->next->get_id(), id) == 0)
+        {
+            for(int i = 0; i < 20; i++)
+                pnew->modify_score(i, ptr->get_score(i));
+            pnew->modify_check(5);
+            pnew->next = ptr->next;
+            ptr->next = pnew;
+            break;
+        }
     }
     ++stu_ls.num;
     return pnew;

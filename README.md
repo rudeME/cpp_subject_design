@@ -33,6 +33,7 @@ the programme is trusteeshiped on github, the website is https://github.com/rude
 (pth)convert all functions in class student to return bool   
 (pth)add the ability to function add of test id that if every bit of it is beteween 0 and 9   
 (pth)add string support of get data, please query details in Back-end Functions Introduction      
+(pth)add a member to class student check to reflect the error info in class, please query details in Back-end Functions Introduction        
 ## Back-end Functions Introduction
 想要使用后端数据，请添加"class_student.h"和"functions.h"头文件   
 后端用来交付的数据会存在back_end_data命名空间当中，使用时请using namespace back_end_data，或使用back_end_data::   
@@ -45,6 +46,12 @@ the programme is trusteeshiped on github, the website is https://github.com/rude
 现在你在前端接收数据的时候已经不需要判断数据的合法性了，你只需要把数据输入后端，后端会为你判断数据合法性，你唯一要做的是接收后端函数或方法的返回值，因为返回值是后端告诉你数据是否合法的媒介，当返回值出现非正常情况的时候，请在前端告知用户输入非法，并让用户重新输入数据   
 **上面这段内容非常重要**，请认真地阅读，要做到**了解接口的返回值的所有可能性，并且能正确处理这些情况**   
 此外，请再次仔细阅读所有函数和方法接口的使用方法，若有后端未考虑到的特殊情况，请告知后端工程师，或在前端处理这些异常    
+**下面是对函数返回值以及类中check变量使用的具体说明**   
+首先，在类student中添加了成员变量check，用于记载类中的错误信息，该变量为protected变量，不可直接访问，但可以使用get_check方法获取值   
+下面介绍具体的返回值情况   
+在add函数中，若check为0，则表示添加正常，若为1，则表示姓名或学号超长，若为2，则表示学号中有不为数字的值，若为3，则表示性别输入不正确，若为4，则表示学院输入不正确, 若为5，则表示该学号已经存在，新添加的信息会覆盖旧的信息    
+在get_score方法中，若返回值为-3，则说明参数违法（即不是学科名）（**注意，modify_score中若参数错误则会返回bool变量false，请一定注意返回值的格式**）    
+以上是新添加的检错机制，其他的检错方法在上面的健壮性检查那里已经说明，这里不再赘述    
 **下面介绍后端函数接口的使用方法**   
 ### init
 无参数，直接调用即可     
