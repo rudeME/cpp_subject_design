@@ -35,6 +35,7 @@ the programme is trusteeshiped on github, the website is https://github.com/rude
 (pth)add string support of get data, please query details in Back-end Functions Introduction      
 (pth)add a member to class student check to reflect the error info in class, please query details in Back-end Functions Introduction        
 (pth)solve the bugs in function add when covering info   
+(pth)slove the bug of stu_ls.num and stu_ls.end    
 ## Back-end Functions Introduction
 想要使用后端数据，请添加"class_student.h"和"functions.h"头文件   
 后端用来交付的数据会存在back_end_data命名空间当中，使用时请using namespace back_end_data，或使用back_end_data::   

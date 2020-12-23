@@ -8,12 +8,16 @@
 using namespace std;
 using namespace back_end_data;
 
+void save_txt()
+{
+    fstream OpenFile;
+    OpenFile.open("C:/CPP_subject_design/link_list.txt", ios::out);
+    OpenFile << "test" << endl;
+    OpenFile.close();
+}
+
 int main()
 {
-    init();
-    student* a{add("201983290395", "Li", JI_RUAN, 1, 1)};
-    cout << a->get_check() << endl;
-    del_all();
-    save();
+    save_txt();
     return 0;
 }
