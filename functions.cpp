@@ -186,12 +186,15 @@ student* add(const char* id, const char* name, int sex, int school, int class_nu
             }
             else if(strcmp(ptr->next->get_id(), id) == 0)
             {
+                if(stu_ls.end == ptr->next)
+                    stu_ls.end = pnew;
                 for(int i = 0; i < 20; i++)
                     pnew->modify_score(i, ptr->next->get_score(i));
                 pnew->modify_check(5);
                 pnew->next = ptr->next->next;
                 delete(ptr->next);
                 ptr->next = pnew;
+                --stu_ls.num;
                 break;
             }
             else 
@@ -205,12 +208,15 @@ student* add(const char* id, const char* name, int sex, int school, int class_nu
         }
         if(strcmp(ptr->next->get_id(), id) == 0)
         {
+            if(stu_ls.end == ptr->next)
+                    stu_ls.end = pnew;
             for(int i = 0; i < 20; i++)
                 pnew->modify_score(i, ptr->next->get_score(i));
             pnew->modify_check(5);
             pnew->next = ptr->next->next;
             delete(ptr->next);
             ptr->next = pnew;
+            --stu_ls.num;
             break;
         }
     }
