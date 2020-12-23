@@ -34,12 +34,13 @@ the programme is trusteeshiped on github, the website is https://github.com/rude
 (pth)add the ability to function add of test id that if every bit of it is beteween 0 and 9   
 (pth)add string support of get data, please query details in Back-end Functions Introduction      
 (pth)add a member to class student check to reflect the error info in class, please query details in Back-end Functions Introduction        
+(pth)solve the bugs in function add when covering info   
 ## Back-end Functions Introduction
 想要使用后端数据，请添加"class_student.h"和"functions.h"头文件   
 后端用来交付的数据会存在back_end_data命名空间当中，使用时请using namespace back_end_data，或使用back_end_data::   
 后端使用的类名称为student    
 ***新增健壮性检查：***    
-现在所有的函数都会对输入的数据进行检查，在add函数中，字符串超长的，学院和性别不满足要求的，会返回NULL指针，所以当使用add函数，返回NULL指针的时候，代表参数不符合规范，在前端一定要对返回NULL的情况特判。在各种sort函数中，若参数中的学院，性别，班级，科目不符合要求(即和目标字符串不匹配)，seek_num变量会是0，所以要对seek_num是0的情况做特别判断。在通过率和平均分的函数中，若出现参数错误或除0错误，会返回-1.0，所以前端要对这种情况特别判断   
+现在所有的函数都会对输入的数据进行检查，在add函数中，字符串超长的，学院和性别不满足要求的，会返回一个对象，里面的check记载了错误的类型，所以当使用add函数，返回对象check不为0的时候，代表参数不符合规范，在前端一定要对返回NULL的情况特判。在各种sort函数中，若参数中的学院，性别，班级，科目不符合要求(即和目标字符串不匹配)，seek_num变量会是0，所以要对seek_num是0的情况做特别判断。在通过率和平均分的函数中，若出现参数错误或除0错误，会返回-1.0，所以前端要对这种情况特别判断   
 关于student类中的方法也加入了健壮性检查，modify_school, modify_class_num, modify_score这三个方法，返回值由void改为了bool。当参数中出现不符合要求的情况的时候，方法的返回值会是false，参数正确，方法运行正常的时候，会返回true。所以使用这些方法的时候一定要接收返回值，并判断返回值正常和不正常的时候分别需要干哪些事情。   
 以上已经说明了所有函数或方法在出现接收参数异常的时候的返回值情况，下面的函数说明中将**不再赘述**这些特殊情况，所以请仔细阅读以上说明   
 其实**后端已经为你做了几乎所有健壮性检查的功能**，总结一下，后端会判断学号，姓名字符串有没有溢出，会判断性别有没有出现不是男或女的情况，会判断学院是否不是原定的三个，会判断班级数是否大于0，会判断分数修改分数时，分数在不在-1, -2, 0到100这个区间，会判断统计通过率和平均分的时候是否出现除0错误    
