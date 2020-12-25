@@ -145,7 +145,7 @@ student* add(const char* id, const char* name, int sex, int school, int class_nu
             perr->modify_check(2);
             return perr;
         }
-    if(sizeof(id) > 14 || sizeof(name) > 19)
+    if(strlen(id) > 14 || strlen(name) > 19)
     {
         student* perr;
         perr = new student{"NULL", "NULL", 0, 0, 0};
