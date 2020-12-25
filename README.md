@@ -36,6 +36,8 @@ the programme is trusteeshiped on github, the website is https://github.com/rude
 (pth)add a member to class student check to reflect the error info in class, please query details in Back-end Functions Introduction        
 (pth)solve the bugs in function add when covering info   
 (pth)slove the bug of stu_ls.num and stu_ls.end    
+(pth)add new Error detection mechanism to avoid deleting one pointer for mutiply times and let del function to return a bool variable, please query the details in Back-end Functions Introduction   
+(pth)solve the bug in function, add to detection of wether the class_num is less than 0, if yes, check will be 6.  please query the details in Back-end Functions Introduction       
 ## Back-end Functions Introduction
 想要使用后端数据，请添加"class_student.h"和"functions.h"头文件   
 后端用来交付的数据会存在back_end_data命名空间当中，使用时请using namespace back_end_data，或使用back_end_data::   
@@ -51,7 +53,7 @@ the programme is trusteeshiped on github, the website is https://github.com/rude
 **下面是对函数返回值以及类中check变量使用的具体说明**   
 首先，在类student中添加了成员变量check，用于记载类中的错误信息，该变量为protected变量，不可直接访问，但可以使用get_check方法获取值   
 下面介绍具体的返回值情况   
-在add函数中，若check为0，则表示添加正常，若为1，则表示姓名或学号超长，若为2，则表示学号中有不为数字的值，若为3，则表示性别输入不正确，若为4，则表示学院输入不正确, 若为5，则表示该学号已经存在，新添加的信息会覆盖旧的信息    
+在add函数中，若check为0，则表示添加正常，若为1，则表示姓名或学号超长，若为2，则表示学号中有不为数字的值，若为3，则表示性别输入不正确，若为4，则表示学院输入不正确, 若为5，则表示该学号已经存在，新添加的信息会覆盖旧的信息, 若返回6，则代表班级数小于0        
 在get_score方法中，若返回值为-3，则说明参数违法（即不是学科名）（**注意，modify_score中若参数错误则会返回bool变量false，请一定注意返回值的格式**）    
 以上是新添加的检错机制，其他的检错方法在上面的健壮性检查那里已经说明，这里不再赘述    
 **下面介绍后端函数接口的使用方法**   
@@ -84,6 +86,7 @@ student* ptr = add("201983290999", "马保国", MALE, JI_RUAN, 1);
 或   
 student* ptr{add("201983290999", "马保国", MALE, JI_RUAN, 1)};   
 函数设有1个返回值，会返回指向这个新建对象的指针，注意，add函数里面不包含对学科分数的登记，登记分数可以通过这个返回的指针，用下面即将提到的modify_score方法修改，切记要登记分数！   
+在add函数返回对象中，若check为0，则表示添加正常，若为1，则表示姓名或学号超长，若为2，则表示学号中有不为数字的值，若为3，则表示性别输入不正确，若为4，则表示学院输入不正确, 若为5，则表示该学号已经存在，新添加的信息会覆盖旧的信息, 若返回6，则代表班级数小于0        
 ### modify_score方法
 2个重载   
 2参数，int sub, int score   
@@ -118,7 +121,9 @@ get_score 1参数，输入学科的枚举类型或const char*，返回对应学�
 get_total_score 无参数，返回总分   
 ### del
 1参数，student* pdel    
+1返回值 bool   
 函数可以删除学生信息，需要向参数列表中提供该对象的指针，即可删除该学生信息   
+返回值bool可以反映删除的情况，要是删除了一个已经删除过的数据，会返回false，否则（即删除正常）会返回true   
 ### del_all
 无参数   
 直接调用即可。此函数可以删除当前程序链表中的所有数据项，但在未保存之前不会影响txt文件，前端应当提供这个函数的按钮，但是应当谨慎使用这个函数，可以提醒用户确认之后再调用

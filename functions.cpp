@@ -166,6 +166,13 @@ student* add(const char* id, const char* name, int sex, int school, int class_nu
         perr->modify_check(4);
         return perr;
     }
+    if(class_num < 0)
+    {
+        student* perr;
+        perr = new student{"NULL", "NULL", 0, 0, 0};
+        perr->modify_check(6);
+        return perr;
+    }
     student* pnew, *ptr{stu_ls.head};
     pnew = new student{id, name, sex, school, class_num};
     for(;;ptr = ptr->next)
@@ -230,9 +237,17 @@ student* add(const char* id, const char* name, const char* sex, const char* scho
 }
 
 
-void del(student* pdel)
+bool del(student* pdel)
 {
+    if(pdel == NULL)
+        return false;
     student* ptr{stu_ls.head};
+    for(int i = 0; i < seek_num; i++)
+        if(seek_res[i] == pdel)
+        {
+            seek_res[i] = NULL;
+            break;
+        }
     for(;;ptr = ptr->next)
         if(ptr->next == pdel)
         {

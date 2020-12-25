@@ -29,7 +29,7 @@ void save();
 void seek(const char*);
 student* add(const char*, const char*, int, int, int);
 student* add(const char*, const char*, const char*, const char*, int);
-void del(student*);
+bool del(student*);
 void del_all();
 void sort_by_total_score(int);
 void sort_by_total_score(const char*);
