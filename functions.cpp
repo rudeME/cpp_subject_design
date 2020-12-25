@@ -9,8 +9,8 @@
 using namespace std;
 using namespace back_end_data;
 
-bool cmp_by_total(student* pa, student* pb) {return pa->get_total_score() >= pb->get_total_score();}
-bool cmp_by_score(student* pa, student* pb) {return pa->get_score(subject) >= pb->get_score(subject);}
+bool cmp_by_total(student* pa, student* pb) {return pa->get_total_score() > pb->get_total_score();}
+bool cmp_by_score(student* pa, student* pb) {return pa->get_score(subject) > pb->get_score(subject);}
 
 bool sex_correctness(int sex)
 {
@@ -173,6 +173,14 @@ student* add(const char* id, const char* name, int sex, int school, int class_nu
         perr->modify_check(6);
         return perr;
     }
+    for(int i = 0; i < strlen(name); i++)
+        if(name[i] > 0)
+        {
+            student* perr;
+            perr = new student{"NULL", "NULL", 0, 0, 0};
+            perr->modify_check(7);
+            return perr;
+        }
     student* pnew, *ptr{stu_ls.head};
     pnew = new student{id, name, sex, school, class_num};
     for(;;ptr = ptr->next)

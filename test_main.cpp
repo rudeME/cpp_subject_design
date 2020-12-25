@@ -8,16 +8,11 @@
 using namespace std;
 using namespace back_end_data;
 
-void save_txt()
-{
-    fstream OpenFile;
-    OpenFile.open("C:/CPP_subject_design/link_list.txt", ios::out);
-    OpenFile << "test" << endl;
-    OpenFile.close();
-}
-
 int main()
 {
-    save_txt();
+    init();
+    for(int i = 0; i <= 9; i++)
+        sort_by_subject_score(1, 1);
+    cout << "Done!" << endl;
     return 0;
 }
