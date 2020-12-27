@@ -127,10 +127,16 @@ bool student::modify_score(int sub, int score)
         return false;
     int origin = student::score[sub];
     student::score[sub] = score;
-    if(origin == -1 || origin == -2)
-        total_score += score;
+    if(origin >= 0)
+    {
+        if(score >= 0)
+            total_score += score - origin;
+        else 
+            total_score -= origin;
+    }
     else 
-        total_score += score - origin;
+        if(score >= 0)
+            total_score += score;
     return true;
 }
 
