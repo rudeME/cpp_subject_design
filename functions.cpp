@@ -166,7 +166,7 @@ student* add(const char* id, const char* name, int sex, int school, int class_nu
         perr->modify_check(4);
         return perr;
     }
-    if(class_num < 0)
+    if(class_num <= 0)
     {
         student* perr;
         perr = new student{"NULL", "NULL", 0, 0, 0};

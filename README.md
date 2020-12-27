@@ -40,6 +40,7 @@ the programme is trusteeshiped on github, the website is https://github.com/rude
 (pth)solve the bug in function, add to detection of wether the class_num is less than 0, if yes, check will be 6. please query the details in Back-end Functions Introduction       
 (pth)add new support of detecting wether the string name is composed by Chinese characters, please query the detail in Back-end Functions Introduction      
 (pth)solve the bug in function sort   
+(pth)solve the bug in total_score calculation   
 ## Back-end Functions Introduction
 想要使用后端数据，请添加"class_student.h"和"functions.h"头文件   
 后端用来交付的数据会存在back_end_data命名空间当中，使用时请using namespace back_end_data，或使用back_end_data::   
