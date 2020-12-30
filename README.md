@@ -41,6 +41,7 @@ the programme is trusteeshiped on github, the website is https://github.com/rude
 (pth)add new support of detecting wether the string name is composed by Chinese characters, please query the detail in Back-end Functions Introduction      
 (pth)solve the bug in function sort   
 (pth)solve the bug in total_score calculation   
+(ysg)add the front-end of the programme, the programme is completed    
 ## Back-end Functions Introduction
 想要使用后端数据，请添加"class_student.h"和"functions.h"头文件   
 后端用来交付的数据会存在back_end_data命名空间当中，使用时请using namespace back_end_data，或使用back_end_data::   
@@ -49,7 +50,7 @@ the programme is trusteeshiped on github, the website is https://github.com/rude
 现在所有的函数都会对输入的数据进行检查，在add函数中，字符串超长的，学院和性别不满足要求的，会返回一个对象，里面的check记载了错误的类型，所以当使用add函数，返回对象check不为0的时候，代表参数不符合规范，在前端一定要对返回NULL的情况特判。在各种sort函数中，若参数中的学院，性别，班级，科目不符合要求(即和目标字符串不匹配)，seek_num变量会是0，所以要对seek_num是0的情况做特别判断。在通过率和平均分的函数中，若出现参数错误或除0错误，会返回-1.0，所以前端要对这种情况特别判断   
 关于student类中的方法也加入了健壮性检查，modify_school, modify_class_num, modify_score这三个方法，返回值由void改为了bool。当参数中出现不符合要求的情况的时候，方法的返回值会是false，参数正确，方法运行正常的时候，会返回true。所以使用这些方法的时候一定要接收返回值，并判断返回值正常和不正常的时候分别需要干哪些事情。   
 以上已经说明了所有函数或方法在出现接收参数异常的时候的返回值情况，下面的函数说明中将**不再赘述**这些特殊情况，所以请仔细阅读以上说明   
-其实**后端已经为你做了几乎所有健壮性检查的功能**，总结一下，后端会判断学号，姓名字符串有没有溢出，会判断性别有没有出现不是男或女的情况，会判断学院是否不是原定的三个，会判断班级数是否大于0，会判断分数修改分数时，分数在不在-1, -2, 0到100这个区间，会判断统计通过率和平均分的时候是否出现除0错误    
+其实**后端已经做了几乎所有健壮性检查的功能**，总结一下，后端会判断学号，姓名字符串有没有溢出，会判断性别有没有出现不是男或女的情况，会判断学院是否不是原定的三个，会判断班级数是否大于0，会判断分数修改分数时，分数在不在-1, -2, 0到100这个区间，会判断统计通过率和平均分的时候是否出现除0错误    
 现在你在前端接收数据的时候已经不需要判断数据的合法性了，你只需要把数据输入后端，后端会为你判断数据合法性，你唯一要做的是接收后端函数或方法的返回值，因为返回值是后端告诉你数据是否合法的媒介，当返回值出现非正常情况的时候，请在前端告知用户输入非法，并让用户重新输入数据   
 **上面这段内容非常重要**，请认真地阅读，要做到**了解接口的返回值的所有可能性，并且能正确处理这些情况**   
 此外，请再次仔细阅读所有函数和方法接口的使用方法，若有后端未考虑到的特殊情况，请告知后端工程师，或在前端处理这些异常    
